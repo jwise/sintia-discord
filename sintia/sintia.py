@@ -336,11 +336,10 @@ class Sintia(discord.Client):
         })
 
         search_results = json.loads(raw_search_results)
-        page_ids = search_results['query']['pageids']
-        if not page_ids:
+        if not 'query' in search_results:
             return await message.channel.send(f'No results found for `{argument}`')
 
-        page_id, *rest = page_ids
+        page_id, *rest = search_results['query']['pageids']
         page_info = search_results['query']['pages'][page_id]
         paragraphs = page_info['extract'].split('\n')
         
